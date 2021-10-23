@@ -3,8 +3,12 @@ const dbConnect = require("./Model/config");
 const app = express();
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
-const orderRoutes = require("./routes/orderRoutes")
+const orderRoutes = require("./routes/orderRoutes");
+const cors = require("cors");
+
 dbConnect();
+
+app.use(cors());
 
 app.use(express.json());
 
