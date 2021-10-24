@@ -21,7 +21,7 @@ const protectRoute = asyncHandle(async (req, res, next) => {
       next();
     } catch (err) {
       res.status(401);
-      throw new Error("Not Authorized")
+      throw new Error("Not Authorized");
     }
   }
   if (!token) {
@@ -50,23 +50,23 @@ const login = asyncHandle(async (req, res) => {
 });
 
 const signup = asyncHandle(async (req, res) => {
-  const {name, email, password } = req.body;
-  const isUserExist = await UserModel.findOne({email});
-  if(isUserExist){
+  const { name, email, password } = req.body;
+  const isUserExist = await UserModel.findOne({ email });
+  if (isUserExist) {
     res.status(400);
     throw new Error("User Already Available");
   }
 
-  const user = await UserModel.create({name, email, password});
-  if(user){
+  const user = await UserModel.create({ name, email, password });
+  if (user) {
     res.status(201).json({
       id: user._id,
       name: user.name,
       email: user.email,
       token: tokenGenerator(user._id),
       isAdmin: user.isAdmin,
-    })
-  }else{
+    });
+  } else {
     res.status(404);
     throw new Error("An Error Occured, Please Try Again Later");
   }
